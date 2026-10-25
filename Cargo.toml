@@ -1,0 +1,8 @@
+[package]
+name = "iomarkets-proof-test"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A tiny crate for testing iomarkets.dev's Proof Arena end to end."
+
+[dependencies]
