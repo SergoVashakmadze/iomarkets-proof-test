@@ -1,0 +1,24 @@
+# Keeps the Proof Arena's proof of count_up proved: Kani checks it on every push and pull request.
+# The proof: https://iomarkets.dev/proof/4c7b7e8657
+# Needs #![cfg_attr(kani, feature(stmt_expr_attributes, proc_macro_hygiene))] once, at the top of the crate root.
+name: Kani proof of count_up
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  kani:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Kani 0.68.0
+        run: |
+          cargo install --locked kani-verifier --version 0.68.0
+          cargo kani setup
+      - name: Prove count_up
+        working-directory: .
+        run: cargo kani -Z loop-contracts --harness iomarkets_proof::
