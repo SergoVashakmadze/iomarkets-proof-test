@@ -21,4 +21,5 @@ jobs:
           cargo kani setup
       - name: Prove count_up
         working-directory: .
-        run: cargo kani -Z loop-contracts --harness iomarkets_proof::
+        run: |
+          cargo kani -Z loop-contracts --harness iomarkets_proof::
